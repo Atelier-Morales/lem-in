@@ -3,35 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   put_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmerlier <tmerlier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmorales <fmorales@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/02/16 19:23:23 by tmerlier          #+#    #+#             */
-/*   Updated: 2014/02/23 20:55:09 by tmerlier         ###   ########.fr       */
+/*   Created: 2014/02/16 19:23:23 by fmorales          #+#    #+#             */
+/*   Updated: 2014/02/23 20:55:09 by fmorales         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <lem-in.h>
-
-static void		put_rooms(t_nest *nest);
-static void		put_pipes(t_nest *nest);
-
-void			put_path(int num, char *name)
-{
-	ft_putchar('L');
-	ft_putnbr(num);
-	ft_putchar('-');
-	ft_putstr(name);
-}
-
-void			put_result(t_nest *nest)
-{
-	ft_putnbr(nest->nb_ants);
-	ft_putchar('\n');
-	put_rooms(nest);
-	put_pipes(nest);
-	ft_putchar('\n');
-}
 
 static void		put_rooms(t_nest *nest)
 {
@@ -71,4 +51,21 @@ static void		put_pipes(t_nest *nest)
 		tmp = tmp->next;
 	}
 	revers_pipe(&nest->pipes);
+}
+
+void			put_path(int num, char *name)
+{
+	ft_putchar('L');
+	ft_putnbr(num);
+	ft_putchar('-');
+	ft_putstr(name);
+}
+
+void			put_result(t_nest *nest)
+{
+	ft_putnbr(nest->nb_ants);
+	ft_putchar('\n');
+	put_rooms(nest);
+	put_pipes(nest);
+	ft_putchar('\n');
 }

@@ -3,44 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmerlier <tmerlier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmorales <fmorales@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/02/16 19:25:39 by tmerlier          #+#    #+#             */
-/*   Updated: 2014/02/17 15:14:27 by tmerlier         ###   ########.fr       */
+/*   Created: 2014/02/16 19:25:39 by fmorales          #+#    #+#             */
+/*   Updated: 2014/02/17 15:14:27 by fmorales         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <libft.h>
 #include <lem-in.h>
-
-static t_room		*can_move(t_room *pos, t_room *prev, t_pipe *pipes);
-static t_room		*test_room(t_room *room, t_room *pos, t_room *prev);
-static t_room		*end_near(t_pipe *pipes, t_room *pos);
-
-int					move_ants(t_ant *ants, t_pipe *pipes)
-{
-	t_room		*next;
-	int			res;
-
-	res = 0;
-	next = NULL;
-	while (ants)
-	{
-		if ((next = can_move(ants->pos, ants->previous, pipes)))
-		{
-			if (res++)
-				ft_putchar(' ');
-			put_path(ants->num, next->name);
-			ants->previous = ants->pos;
-			ants->pos->state = ants->pos->state - 1;
-			next->state = next->state + 1;
-			ants->pos = next;
-		}
-		ants = ants->next;
-	}
-	return (res);
-}
 
 static t_room		*can_move(t_room *pos, t_room *prev, t_pipe *pipes)
 {
@@ -86,4 +58,28 @@ static t_room		*end_near(t_pipe *pipes, t_room *pos)
 		pipes = pipes->next;
 	}
 	return (NULL);
+}
+
+int					move_ants(t_ant *ants, t_pipe *pipes)
+{
+	t_room		*next;
+	int			res;
+
+	res = 0;
+	next = NULL;
+	while (ants)
+	{
+		if ((next = can_move(ants->pos, ants->previous, pipes)))
+		{
+			if (res++)
+				ft_putchar(' ');
+			put_path(ants->num, next->name);
+			ants->previous = ants->pos;
+			ants->pos->state = ants->pos->state - 1;
+			next->state = next->state + 1;
+			ants->pos = next;
+		}
+		ants = ants->next;
+	}
+	return (res);
 }

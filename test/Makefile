@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tmerlier <tmerlier@student.42.fr>          +#+  +:+       +#+         #
+#    By: fmorales <fmorales@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2013/11/27 16:01:27 by tmerlier          #+#    #+#              #
-#    Updated: 2014/02/23 01:19:14 by tmerlier         ###   ########.fr        #
+#    Created: 2013/11/27 16:01:27 by fmorales          #+#    #+#              #
+#    Updated: 2014/02/23 01:19:14 by fmorales         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

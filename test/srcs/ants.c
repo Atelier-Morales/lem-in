@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ants.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmerlier <tmerlier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmorales <fmorales@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/02/15 19:29:10 by tmerlier          #+#    #+#             */
-/*   Updated: 2014/02/23 05:59:42 by tmerlier         ###   ########.fr       */
+/*   Created: 2014/02/15 19:29:10 by fmorales          #+#    #+#             */
+/*   Updated: 2014/02/23 05:59:42 by fmorales         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,28 @@
 #include <libft.h>
 #include <lem-in.h>
 
-static t_ant		*new_ant(t_room *room, int num);
-static int			is_int(char *line);
+static int			is_int(char *line)
+{
+	int		len;
+
+	len = ft_strlen(line);
+	if (len >= 10 && ft_strcmp(line, "2147483647") >= 0)
+		return (0);
+	return (1);
+}
+
+static t_ant		*new_ant(t_room *room, int num)
+{
+	t_ant		*new;
+
+	if (!(new = (t_ant *)malloc(sizeof(t_ant))))
+		put_error(0);
+	new->num = num;
+	new->pos = room;
+	new->previous = NULL;
+	new->next = NULL;
+	return (new);
+}
 
 int					is_ants(char *line)
 {
@@ -29,16 +49,6 @@ int					is_ants(char *line)
 			return (0);
 		line++;
 	}
-	return (1);
-}
-
-static int			is_int(char *line)
-{
-	int		len;
-
-	len = ft_strlen(line);
-	if (len >= 10 && ft_strcmp(line, "2147483647") >= 0)
-			return (0);
 	return (1);
 }
 
@@ -58,18 +68,5 @@ t_ant				*init_ants(int ants_nb, t_nest *nest)
 		new = new_ant(tmp_r, ants_nb--);
 		new->next = tmp;
 	}
-	return (new);
-}
-
-static t_ant		*new_ant(t_room *room, int num)
-{
-	t_ant		*new;
-
-	if (!(new = (t_ant *) malloc(sizeof(t_ant))))
-		put_error(0);
-	new->num = num;
-	new->pos = room;
-	new->previous = NULL;
-	new->next = NULL;
 	return (new);
 }

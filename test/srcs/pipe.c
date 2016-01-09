@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmerlier <tmerlier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmorales <fmorales@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/02/16 17:43:27 by tmerlier          #+#    #+#             */
-/*   Updated: 2014/02/23 20:55:16 by tmerlier         ###   ########.fr       */
+/*   Created: 2014/02/16 17:43:27 by fmorales          #+#    #+#             */
+/*   Updated: 2014/02/23 20:55:16 by fmorales         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,12 @@
 #include <libft.h>
 #include <lem-in.h>
 
-static t_room		*room_chr(t_room *rooms, char *name);
+static t_room		*room_chr(t_room *rooms, char *name)
+{
+	while (rooms && !ft_strequ(rooms->name, name))
+		rooms = rooms->next;
+	return (rooms);
+}
 
 void				add_pipe(t_nest *nest, char *line, char **property)
 {
@@ -23,7 +28,7 @@ void				add_pipe(t_nest *nest, char *line, char **property)
 	t_pipe		*tmp;
 
 	tab = ft_strsplit(line, '-');
-	if (!(new = (t_pipe *) malloc(sizeof(t_pipe))))
+	if (!(new = (t_pipe *)malloc(sizeof(t_pipe))))
 		put_error(0);
 	new->room1 = room_chr(nest->rooms, tab[0]);
 	new->room2 = room_chr(nest->rooms, tab[1]);
@@ -56,13 +61,6 @@ int					is_pipe(t_room *rooms, char *line)
 		if (room_chr(rooms, tab[0]) && room_chr(rooms, tab[1]))
 			return (1);
 	return (0);
-}
-
-static t_room		*room_chr(t_room *rooms, char *name)
-{
-	while (rooms && !ft_strequ(rooms->name, name))
-		rooms = rooms->next;
-	return (rooms);
 }
 
 void				revers_pipe(t_pipe **files)

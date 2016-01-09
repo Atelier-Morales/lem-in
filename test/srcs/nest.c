@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   nest.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmerlier <tmerlier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmorales <fmorales@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/02/15 19:42:35 by tmerlier          #+#    #+#             */
-/*   Updated: 2014/02/23 21:22:56 by tmerlier         ###   ########.fr       */
+/*   Created: 2014/02/15 19:42:35 by fmorales          #+#    #+#             */
+/*   Updated: 2014/02/23 21:22:56 by fmorales         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,11 @@
 #include <libft.h>
 #include <lem-in.h>
 
-static t_nest	*new_nest(void);
-static int		add_line(t_nest *nest, char *line);
-static void		create_room_pipe(t_nest *nest, char *line, char **property);
-static int		is_newname(t_nest *nest, char *line);
-
-t_nest			*build_nest(void)
-{
-	char	*line;
-	t_nest	*nest;
-
-	nest = new_nest();
-	get_next_line(0, &line);
-	if (!is_ants(line) || ft_atoi(line) == 0 || line == NULL)
-		put_error(1);
-	nest->nb_ants = ft_atoi(line);
-	while (get_next_line(0, &line))
-	{
-		if (add_line(nest, line))
-			break ;
-	}
-	if (is_doable(nest))
-		nest->ants = init_ants(nest->nb_ants, nest);
-	return (nest);
-}
-
 static t_nest	*new_nest(void)
 {
 	t_nest	*new;
 
-	if (!(new = (t_nest *) malloc(sizeof(t_nest))))
+	if (!(new = (t_nest *)malloc(sizeof(t_nest))))
 		put_error(0);
 	new->ants = NULL;
 	new->rooms = NULL;
@@ -103,4 +78,24 @@ static int		is_newname(t_nest *nest, char *line)
 		tmp = tmp->next;
 	}
 	return (1);
+}
+
+t_nest			*build_nest(void)
+{
+	char	*line;
+	t_nest	*nest;
+
+	nest = new_nest();
+	get_next_line(0, &line);
+	if (!is_ants(line) || ft_atoi(line) == 0 || line == NULL)
+		put_error(1);
+	nest->nb_ants = ft_atoi(line);
+	while (get_next_line(0, &line))
+	{
+		if (add_line(nest, line))
+			break ;
+	}
+	if (is_doable(nest))
+		nest->ants = init_ants(nest->nb_ants, nest);
+	return (nest);
 }
