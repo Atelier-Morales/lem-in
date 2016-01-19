@@ -12,6 +12,7 @@
 
 #include <stdlib.h>
 #include <unistd.h>
+#include <stdio.h>
 #include "libft.h"
 
 static int		no_leak_exit(char **mem, int ret)
@@ -26,6 +27,8 @@ static int		cut_endl(char **mem, char **line, char *endl)
 	char		*tmp;
 
 	tmp = *mem;
+	if (endl == NULL)
+		endl = ft_strdup("\0");
 	if (!(*line = ft_strsub(*mem, 0, endl - (*mem)))
 		|| !(*mem = ft_strsub(endl + 1, 0, ft_strlen(endl + 1))))
 		return (no_leak_exit(&tmp, -1));
@@ -43,7 +46,7 @@ int				get_next_line(const int fd, char **line)
 
 	if ((sz = 1) && !line)
 		return (-1);
-	while ((!mem || !(endl = ft_strchr(mem, '\n')))
+	while ((!mem || (!(endl = ft_strchr(mem, '\n')) && endl))
 			&& (sz = read(fd, buff, BUFF_SIZE)) > 0)
 	{
 		buff[sz] = '\0';

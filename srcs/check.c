@@ -33,27 +33,27 @@ static int		startend_pipe(t_nest *nest)
 	return (1);
 }
 
-static int		check_star_end(t_nest *nest)
-{
-	t_room	*tmp;
-	int		start;
-	int		end;
+// static int		check_star_end(t_nest *nest)
+// {
+// 	t_room	*tmp;
+// 	int		start;
+// 	int		end;
 
-	start = 0;
-	end = 0;
-	tmp = nest->rooms;
-	while (tmp)
-	{
-		if (tmp->property == START)
-			start++;
-		if (tmp->property == END)
-			end++;
-		tmp = tmp->next;
-	}
-	if (start == 1 && end == 1)
-		return (0);
-	return (1);
-}
+// 	start = 0;
+// 	end = 0;
+// 	tmp = nest->rooms;
+// 	while (tmp)
+// 	{
+// 		if (tmp->property == START)
+// 			start++;
+// 		if (tmp->property == END)
+// 			end++;
+// 		tmp = tmp->next;
+// 	}
+// 	if (start == 1 && end == 1)
+// 		return (0);
+// 	return (1);
+// }
 
 int				check_xy(t_nest *nest, t_coord *coord)
 {
@@ -95,9 +95,9 @@ int				check_rules(t_nest *nest)
 
 int				is_doable(t_nest *nest)
 {
-	if (!nest->rooms)
+	if (nest->gates != 2)
 		put_error(1);
-	if (check_star_end(nest))
+	if (!nest->rooms)
 		put_error(1);
 	if (!nest->pipes)
 		put_error(1);

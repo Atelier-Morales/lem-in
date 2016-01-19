@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include "../includes/lem_in.h"
 
 static int		is_newname(t_nest *nest, char *line)
@@ -34,8 +35,11 @@ static t_nest	*new_nest(void)
 	if (!(new = (t_nest *)malloc(sizeof(t_nest))))
 		put_error(0);
 	new->ants = NULL;
+	new->start = NULL;
+	new->end = NULL;
 	new->rooms = NULL;
 	new->pipes = NULL;
+	new->gates = 0;
 	return (new);
 }
 
@@ -57,7 +61,7 @@ static int		add_line(t_nest *nest, char *line)
 {
 	static char		*property = NULL;
 
-	if (line == NULL)
+	if (line == NULL || ft_strlen(line) == 0)
 		return (1);
 	else if (*line == 'L')
 		return (1);
@@ -68,9 +72,9 @@ static int		add_line(t_nest *nest, char *line)
 			property = ft_strdup(line + 2);
 			if (check_rules(nest))
 				return (1);
+
+			nest->gates++;
 		}
-		else
-			return (1);
 	}
 	else if (*line == '#' && *(line + 1) != '#')
 		return (0);

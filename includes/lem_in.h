@@ -55,6 +55,9 @@ typedef struct		s_coord
 typedef struct		s_nest
 {
 	int				nb_ants;
+	int				gates;
+	char			*start;
+	char			*end;
 	t_room			*rooms;
 	t_pipe			*pipes;
 	t_ant			*ants;
