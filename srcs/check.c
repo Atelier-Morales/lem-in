@@ -33,27 +33,30 @@ static int		startend_pipe(t_nest *nest)
 	return (1);
 }
 
-// static int		check_star_end(t_nest *nest)
-// {
-// 	t_room	*tmp;
-// 	int		start;
-// 	int		end;
+static int		check_exit(t_nest *nest)
+{
+	t_room	*room_tmp;
+	t_pipe	*pipe_tmp;
+	int		connection;
 
-// 	start = 0;
-// 	end = 0;
-// 	tmp = nest->rooms;
-// 	while (tmp)
-// 	{
-// 		if (tmp->property == START)
-// 			start++;
-// 		if (tmp->property == END)
-// 			end++;
-// 		tmp = tmp->next;
-// 	}
-// 	if (start == 1 && end == 1)
-// 		return (0);
-// 	return (1);
-// }
+	room_tmp = nest->rooms;
+	while (room_tmp)
+	{
+		connection = 0;
+		pipe_tmp = nest->pipes;
+		while (pipe_tmp)
+		{
+			if (ft_strequ(pipe_tmp->room1->name, room_tmp->name)
+					|| ft_strequ(pipe_tmp->room2->name, room_tmp->name))
+				connection++;
+			pipe_tmp = pipe_tmp->next;
+		}
+		if (room_tmp->property != NONE && connection < 1)
+			return (1);
+		room_tmp = room_tmp->next;
+	}
+	return (0);
+}
 
 int				check_xy(t_nest *nest, t_coord *coord)
 {
@@ -102,6 +105,8 @@ int				is_doable(t_nest *nest)
 	if (!nest->pipes)
 		put_error(1);
 	if (startend_pipe(nest))
+		put_error(1);
+	if (check_exit(nest))
 		put_error(1);
 	return (1);
 }
