@@ -38,6 +38,11 @@ static t_ant		*new_ant(t_room *room, int num)
 
 int					is_ants(char *line)
 {
+	char		**test;
+
+	test = ft_strsplit(line, ' ');
+	if (ft_strlen(test[1]) > 0)
+		return (0);
 	while (*line == ' ' || *line == '\t')
 		line++;
 	if (!is_int(line))

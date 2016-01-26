@@ -72,7 +72,6 @@ static int		add_line(t_nest *nest, char *line)
 			property = ft_strdup(line + 2);
 			if (check_rules(nest))
 				return (1);
-
 			nest->gates++;
 		}
 	}
